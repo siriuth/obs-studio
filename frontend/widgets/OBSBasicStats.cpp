@@ -55,7 +55,8 @@ OBSBasicStats::OBSBasicStats(QWidget *parent, bool closable)
 	  recTimeLeft(this)
 {
 	QVBoxLayout *mainLayout = new QVBoxLayout();
-	QGridLayout *topLayout = new QGridLayout();
+	QGridLayout *topleftLayout = new QGridLayout();
+
 	outputLayout = new QGridLayout();
 
 	bitrates.reserve(REC_TIME_LEFT_INTERVAL / TIMER_INTERVAL);
@@ -64,8 +65,8 @@ OBSBasicStats::OBSBasicStats(QWidget *parent, bool closable)
 
 	auto newStatBare = [&](QString name, QWidget *label, int col) {
 		QLabel *typeLabel = new QLabel(name, this);
-		topLayout->addWidget(typeLabel, row, col);
-		topLayout->addWidget(label, row++, col + 1);
+		topleftLayout->addWidget(typeLabel, row, col);
+		topleftLayout->addWidget(label, row++, col + 1);
 	};
 
 	auto newStat = [&](const char *strLoc, QWidget *label, int col) {
