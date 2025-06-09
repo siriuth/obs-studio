@@ -108,14 +108,22 @@ OBSBasicStats::OBSBasicStats(QWidget *parent, bool closable)
 
 	/* --------------------------------------------- */
 	QPushButton *closeButton = nullptr;
-	if (closable)
+	QHBoxLayout *buttonLayout = nullptr;
+	if (closable) {
 		closeButton = new QPushButton(QTStr("Close"));
-	QPushButton *resetButton = new QPushButton(QTStr("Reset"));
-	QHBoxLayout *buttonLayout = new QHBoxLayout;
-	buttonLayout->addStretch();
-	buttonLayout->addWidget(resetButton);
-	if (closable)
+		buttonLayout = new QHBoxLayout;
+		buttonLayout->addStretch();
 		buttonLayout->addWidget(closeButton);
+	}
+	QPushButton *resetButton = new QPushButton(QTStr("Reset"));
+	resetButton->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
+	QVBoxLayout *toprightLayout = new QVBoxLayout;
+	toprightLayout->addWidget(resetButton);
+	toprightLayout->addStretch();
+
+	QHBoxLayout *topLayout = new QHBoxLayout;
+	topLayout->addLayout(topleftLayout);
+	topLayout->addLayout(toprightLayout);
 
 	/* --------------------------------------------- */
 
@@ -154,7 +162,8 @@ OBSBasicStats::OBSBasicStats(QWidget *parent, bool closable)
 
 	mainLayout->addLayout(topLayout);
 	mainLayout->addWidget(scrollArea);
-	mainLayout->addLayout(buttonLayout);
+	if (closable)
+		mainLayout->addLayout(buttonLayout);
 	setLayout(mainLayout);
 
 	/* --------------------------------------------- */
