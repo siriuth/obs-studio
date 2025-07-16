@@ -132,7 +132,10 @@
 
     --padding_base_border: calc(var(--padding_base) + 1px);
 
-    --spinbox_button_height: calc(var(--input_height_half) - 1px);
+    --spinbox_height_base: calc(var(--input_height_base) + 0);
+    --spinbox_height_half: calc(var(--spinbox_height_base) / 2);
+    --spinbox_up_button_height: calc(var(--spinbox_height_half) - 1px);
+    --spinbox_down_button_height: calc(calc(var(--spinbox_height_base) - var(--spinbox_height_half)) - 1px);
 
     --volume_slider: calc(calc(4px + var(--font_base_value)) / 4);
     --volume_slider_box: calc(var(--volume_slider) * 4);
@@ -1102,8 +1105,7 @@ QDoubleSpinBox {
     background-color: var(--input_bg);
     border: 1px solid var(--input_bg);
     border-radius: var(--border_radius);
-    padding: var(--input_padding) var(--input_text_padding);
-    height: var(--input_height);
+    padding: var(--input_padding) 0px;
     max-height: var(--input_height);
 }
 
@@ -1126,7 +1128,7 @@ QDoubleSpinBox::up-button {
     subcontrol-position: top right;
 
     width: var(--input_height);
-    height: var(--spinbox_button_height);
+    height: var(--spinbox_up_button_height);
     border-left: 1px solid var(--grey6);
     border-bottom: 1px solid transparent;
     border-radius: 0px;
@@ -1140,7 +1142,7 @@ QDoubleSpinBox::down-button {
     subcontrol-position: bottom right;
 
     width: var(--input_height);
-    height: var(--spinbox_button_height);
+    height: var(--spinbox_down_button_height);
     border-left: 1px solid var(--grey6);
     border-top: 1px solid var(--grey6);
     border-radius: 0px;
