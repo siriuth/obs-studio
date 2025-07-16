@@ -1106,6 +1106,7 @@ QDoubleSpinBox {
     border: 1px solid var(--input_bg);
     border-radius: var(--border_radius);
     padding: var(--input_padding) 0px;
+    height: var(--input_height);
     max-height: var(--input_height);
 }
 
