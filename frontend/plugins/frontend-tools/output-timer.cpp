@@ -20,6 +20,8 @@ OutputTimer::OutputTimer(QWidget *parent) : QDialog(parent), ui(new Ui_OutputTim
 
 	QObject::connect(ui->outputTimerStream, &QPushButton::clicked, this, &OutputTimer::StreamingTimerButton);
 	QObject::connect(ui->outputTimerRecord, &QPushButton::clicked, this, &OutputTimer::RecordingTimerButton);
+	QObject::connect(ui->outputTimerRecordCancel, &QPushButton::clicked, this,
+			 &OutputTimer::RecordingTimerCancelButton);
 	QObject::connect(ui->buttonBox->button(QDialogButtonBox::Close), &QPushButton::clicked, this,
 			 &OutputTimer::hide);
 
@@ -65,6 +67,24 @@ void OutputTimer::RecordingTimerButton()
 	} else if (obs_frontend_recording_active()) {
 		blog(LOG_INFO, "Stopping recording due to OutputTimer");
 		obs_frontend_recording_stop();
+	}
+}
+
+void OutputTimer::RecordingTimerCancelButton()
+{
+	if (!obs_frontend_recording_active()) {
+		//開始処理
+		//blog(LOG_INFO, "Starting recording due to OutputTimer");
+		//obs_frontend_recording_start();
+	} else if (!recordingAlreadyActive) {
+		//キャンセル処理 タイマーを止めるだけ
+		//RecordTimerStart();
+		RecordTimerStop();
+		recordingAlreadyActive = true;
+		ui->outputTimerRecordCancel->setEnabled(false);
+	} else if (obs_frontend_recording_active()) {
+		//blog(LOG_INFO, "Stopping recording due to OutputTimer");
+		//obs_frontend_recording_stop();
 	}
 }
 
@@ -118,6 +138,7 @@ void OutputTimer::RecordTimerStart()
 	recordingTimer->start();
 	recordingTimerDisplay->start(1000);
 	ui->outputTimerRecord->setText(obs_module_text("Stop"));
+	ui->outputTimerRecordCancel->setEnabled(true);
 
 	UpdateRecordTimerDisplay();
 
@@ -154,6 +175,7 @@ void OutputTimer::RecordTimerStop()
 		recordingTimer->stop();
 
 	ui->outputTimerRecord->setText(obs_module_text("Start"));
+	ui->outputTimerRecordCancel->setEnabled(false);
 
 	if (recordingTimerDisplay->isActive())
 		recordingTimerDisplay->stop();
