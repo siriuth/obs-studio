@@ -21,6 +21,7 @@ public:
 public slots:
 	void StreamingTimerButton();
 	void RecordingTimerButton();
+	void RecordingTimerCancelButton();
 	void StreamTimerStart();
 	void RecordTimerStart();
 	void StreamTimerStop();
