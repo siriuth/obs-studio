@@ -58,7 +58,8 @@ OBSBasicStats::OBSBasicStats(QWidget *parent, bool closable)
 	  recTimeLeft(this)
 {
 	QVBoxLayout *mainLayout = new QVBoxLayout();
-	QGridLayout *topLayout = new QGridLayout();
+	//QGridLayout *topLayout = new QGridLayout();
+	QGridLayout *topleftLayout = new QGridLayout();
 	outputLayout = new QGridLayout();
 
 	bitrates.reserve(REC_TIME_LEFT_INTERVAL / TIMER_INTERVAL);
@@ -67,8 +68,10 @@ OBSBasicStats::OBSBasicStats(QWidget *parent, bool closable)
 
 	auto newStatBare = [&](QString name, QWidget *label, int col) {
 		QLabel *typeLabel = new QLabel(name, this);
-		topLayout->addWidget(typeLabel, row, col);
-		topLayout->addWidget(label, row++, col + 1);
+		//topLayout->addWidget(typeLabel, row, col);
+		//topLayout->addWidget(label, row++, col + 1);
+		topleftLayout->addWidget(typeLabel, row, col);
+		topleftLayout->addWidget(label, row++, col + 1);
 	};
 
 	auto newStat = [&](const char *strLoc, QWidget *label, int col) {
@@ -111,14 +114,28 @@ OBSBasicStats::OBSBasicStats(QWidget *parent, bool closable)
 
 	/* --------------------------------------------- */
 	QPushButton *closeButton = nullptr;
-	if (closable)
+	//if (closable)
+	//	closeButton = new QPushButton(QTStr("Close"));
+	QHBoxLayout *buttonLayout = nullptr;
+	if (closable) {
 		closeButton = new QPushButton(QTStr("Close"));
-	QPushButton *resetButton = new QPushButton(QTStr("Reset"));
-	QHBoxLayout *buttonLayout = new QHBoxLayout;
-	buttonLayout->addStretch();
-	buttonLayout->addWidget(resetButton);
-	if (closable)
+		buttonLayout = new QHBoxLayout;
+		buttonLayout->addStretch();
 		buttonLayout->addWidget(closeButton);
+	}
+	QPushButton *resetButton = new QPushButton(QTStr("Reset"));
+	//QHBoxLayout *buttonLayout = new QHBoxLayout;
+	//buttonLayout->addStretch();
+	//buttonLayout->addWidget(resetButton);
+	//if (closable)
+	//	buttonLayout->addWidget(closeButton);
+	resetButton->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
+	QVBoxLayout *toprightLayout = new QVBoxLayout;
+	toprightLayout->addWidget(resetButton);
+	toprightLayout->addStretch();
+	QHBoxLayout *topLayout = new QHBoxLayout;
+	topLayout->addLayout(topleftLayout);
+	topLayout->addLayout(toprightLayout);
 
 	/* --------------------------------------------- */
 
@@ -157,7 +174,9 @@ OBSBasicStats::OBSBasicStats(QWidget *parent, bool closable)
 
 	mainLayout->addLayout(topLayout);
 	mainLayout->addWidget(scrollArea);
-	mainLayout->addLayout(buttonLayout);
+	//mainLayout->addLayout(buttonLayout);
+	if (closable)
+		mainLayout->addLayout(buttonLayout);
 	setLayout(mainLayout);
 
 	/* --------------------------------------------- */
