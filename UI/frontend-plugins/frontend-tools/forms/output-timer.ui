@@ -87,15 +87,41 @@
      </property>
     </widget>
    </item>
-   <item row="3" column="8">
-    <widget class="QPushButton" name="outputTimerRecord">
-     <property name="text">
-      <string>Start</string>
-     </property>
-     <property name="checkable">
-      <bool>true</bool>
-     </property>
-    </widget>
+   <item row="3" column="8" rowspan="4">
+    <layout class="QVBoxLayout" name="outputTimerRecordLayout">
+     <item row="1">
+      <widget class="QPushButton" name="outputTimerRecord">
+       <property name="text">
+        <string>Start</string>
+       </property>
+       <property name="checkable">
+        <bool>true</bool>
+       </property>
+      </widget>
+     </item>
+     <item row="2">
+      <widget class="QPushButton" name="outputTimerRecordCancel">
+       <property name="text">
+        <string>Cancel</string>
+       </property>
+       <property name="enabled">
+        <bool>false</bool>
+       </property>
+      </widget>
+     </item>
+     <item row="3">
+      <spacer>
+       <property name="orientation">
+        <enum>Qt::Vertical</enum>
+       </property>
+      </spacer>
+     </item>
+     <!--
+       <property name="attribute">
+        <string>stretch</string>
+       </property>
+     -->
+    </layout>
    </item>
    <item row="6" column="1">
     <widget class="QLabel" name="recordStoppingIn">
@@ -111,7 +137,7 @@
      </property>
     </widget>
    </item>
-   <item row="2" column="2">
+   <item row="2" column="2" colspan="6">
     <widget class="QLabel" name="streamTime">
      <property name="text">
       <string>00:00:00</string>
@@ -138,7 +164,7 @@
      </property>
     </widget>
    </item>
-   <item row="6" column="2">
+   <item row="6" column="2" colspan="6">
     <widget class="QLabel" name="recordTime">
      <property name="text">
       <string>00:00:00</string>
@@ -172,7 +198,7 @@
      </property>
     </widget>
    </item>
-   <item row="1" column="1" colspan="3">
+   <item row="1" column="1" colspan="7">
     <widget class="QCheckBox" name="autoStartStreamTimer">
      <property name="text">
       <string>OutputTimer.Stream.EnableEverytime</string>
@@ -186,7 +212,7 @@
      </property>
     </widget>
    </item>
-   <item row="4" column="1" colspan="3">
+   <item row="4" column="1" colspan="7">
     <widget class="QCheckBox" name="autoStartRecordTimer">
      <property name="text">
       <string>OutputTimer.Record.EnableEverytime</string>
@@ -214,7 +240,7 @@
      </property>
     </widget>
    </item>
-   <item row="5" column="1" colspan="3">
+   <item row="5" column="1" colspan="7">
     <widget class="QCheckBox" name="pauseRecordTimer">
      <property name="sizePolicy">
       <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
@@ -242,6 +268,7 @@
   <tabstop>recordingTimerMinutes</tabstop>
   <tabstop>recordingTimerSeconds</tabstop>
   <tabstop>outputTimerRecord</tabstop>
+  <tabstop>outputTimerRecordCancel</tabstop>
   <tabstop>autoStartRecordTimer</tabstop>
   <tabstop>pauseRecordTimer</tabstop>
  </tabstops>
